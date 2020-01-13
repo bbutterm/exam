@@ -1,25 +1,17 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   ft_atoi.c                                          :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: bbutterm <marvin@42.fr>                    +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/01/09 20:28:41 by bbutterm          #+#    #+#             */
-/*   Updated: 2020/01/09 21:25:57 by bbutterm         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
 #include <stdio.h>
-int ft_atoi(char* s)
+#include <unistd.h>
+#include <stdlib.h>
+int ft_atoi(char *s)
 {
-	int sign,i,r,l;
+	int sign;
+	long r;
+	int i;
+
+	i = 0;
 	r = 0;
 	sign = 1;
-	i = 0;
-	while (s[i] == '\t' || s[i] =='\n' || s[i] == '\v' || s[i] == '\f' || s[i] =='\r' || s[i] ==32)
-	{
+	while (s[i] == 32 || (9<=s[i] && s[i]<= 13))
 		i++;
-	}
 	if (s[i] == '+' || s[i] == '-')
 	{
 		if (s[i] == '-')
@@ -28,15 +20,18 @@ int ft_atoi(char* s)
 		}
 		i++;
 	}
-	while (s[i] >= '0' && s[i]<='9')
-	{	
-		r = r * 10 + s[i] - '0';
+
+	while (s[i] >= '0' && s[i] <= '9')
+	{
+		r = r*10+s[i]-'0';
 		i++;
 	}
-	return(r*sign);
+	return ((int)(r) * sign);
 }
-#include <stdlib.h>
-int main(){
-	printf("%d\n",ft_atoi("999"));
-	printf("%d\n",atoi("999"));
+
+int main()
+{
+	char a[] = "-1231";
+	printf("%d\n",ft_atoi(a));
+	printf("%d\n",atoi(a));
 }
