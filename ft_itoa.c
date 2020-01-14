@@ -1,73 +1,53 @@
-/*Write a function that takes an int and converts it to a null-terminated string.
- * The function returns the result in a char array that you must allocate.
- *
- * Your function must be declared as follows:
- *
- * char	*ft_itoa(int nbr);
- */
-#include <stdio.h>
 #include <stdlib.h>
-
 int ft_strlen(char *s)
 {
-	int i;
-	i = 0;
-	while (*s++)
+	int i = 0;
+	while (s[i])
+	{
 		i++;
-	return i;
+	}
+	return i;	
 }
 char *ft_strrev(char *s)
 {
-	char t;
-	int i,l;
-	i = 0;
+	char tmp;
+	int i = 0;
+	int l;
 	l = ft_strlen(s);
-	while (l >i)
+	s[l] = '\0';
+	while (i<l)
 	{
 		l--;
-		t = s[i];
+		tmp =s[i];
 		s[i] = s[l];
-		s[l] = t;
+		s[l] = tmp;
 		i++;
 	}
 	return s;
 }
-
-char *ft_itoa(int nbr)
+char *ft_itoa(int a)
 {
-	int i;
-	int sign;
-	char *tmp;
-	
-	i = 0;
-	sign = 0;
-	tmp = malloc(sizeof(char)*12);
-	if (tmp == NULL)
-		return NULL;
-	if (nbr == 0)
-		return 0;
-	if (nbr == -2147483648)
-		return("-214783648");
-	if (nbr < 0)
+	char *s;
+	int neg,num,i = 0;
+	num = a;
+	if (a<0)
 	{
-		sign = 1;
-		nbr*= -1;
+		neg = 1;
+		num = a*-1;
 	}
-	while (nbr)
+	s = malloc(sizeof(char)*12);
+	while (num > 9)
 	{
-		tmp[i++] = (nbr % 10) + '0';
-		nbr /= 10;
+		s[i] = num%10 + '0';
+		num/=10;
+		i++;
 	}
-	if (sign)
-		tmp[i] = '-';
-	return ft_strrev(tmp);
-}
-
-int	main(void)
-{
-	int i = 0;
-	int tab[5] = {-2147483648, -42, 0, 42, 2147483647};
-	while (i < 5)
-		printf("%s\n", ft_itoa(tab[i++]));
-	return 0;
+	s[i] = num + '0';
+	if (neg == 1)
+	{
+		s[i+1] = '-';
+		i++;
+	}
+	s[i+2] = '\0';
+	return ft_strrev(s);
 }
