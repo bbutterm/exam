@@ -1,23 +1,21 @@
 #include <stdio.h>
-void ft_swap(int *a, int *b)
-{
-	int tmp = 0;
-	tmp = *a;
-	*a = *b;
-	*b = tmp;
-}
-
 void sort_int_tab(int *tab, unsigned int size)
 {
+	int tmp;
 	int i,j = 0;
-	while (j < size)
+	while (j < size -1)
 	{
-		while (i+1 < size)
+		while ( i < size)
 		{
-			if (tab[i] > tab[i+1])
-				ft_swap(&tab[i],&tab[i+1]);
+			if (tab[i]  > tab[i+1])
+			{
+				tmp = tab[i];
+				tab[i] = tab[i+1];
+				tab[i+1] = tmp;
+				i++;
+			}
 			i++;
-		}
+		}	
 		i = 0;
 		j++;
 	}	
@@ -25,9 +23,9 @@ void sort_int_tab(int *tab, unsigned int size)
 int main()
 {
 	int i = 0;
-	int a[5] = {1,5,2,9,2};
+	int a[5] = {3,-11,1,120,3};
 	sort_int_tab(a,5);
-	while (i < 5)
+	while (i<5)
 	{
 		printf("%d\n",a[i]);
 		i++;
