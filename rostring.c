@@ -18,6 +18,7 @@ void rostring(char *s)
 				ros++;
 			}
 		}
+		i++;
 		while(!ft_isspace(s[i]) && s[i])
 		{
 			write(1,&s[i],1);
