@@ -1,33 +1,34 @@
 #include <stdio.h>
 #include <stdlib.h>
-void fprime(unsigned int nb)
+
+void ft_prime(unsigned int a)
 {
-	unsigned int prime = 2;
-	if (nb == 1)
-		printf("1");
+	int prime = 2;
+	if (a <= 2)
+		printf("%d",a);
 	else
 	{
-		while(nb>1)
+		while (a >= 2)
 		{
-			if (nb%prime==0)
+			if (a%prime == 0)
 			{
 				printf("%d",prime);
-				nb/=prime;
-				if (nb > 1)
-					printf("*");
+				a/=prime;
 				prime--;
+				if (a!=1)
+					printf("*");
 			}
 			prime++;
 		}
 	}
+
 }
+
 int main(int ac, char **av)
 {
-	if (ac != 2)
-		printf("\n");
-	else
+	if (ac == 2)
 	{
-		fprime(atoi(av[1]));
-		printf("\n");
+		ft_prime(atoi(av[1]));	
 	}
+	printf("\n");
 }
