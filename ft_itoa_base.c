@@ -1,4 +1,6 @@
 #include <stdlib.h>
+#include <stdio.h>
+
 int ft_strlen(char *s)
 {
 	int i = 0;
@@ -21,7 +23,14 @@ char *ft_strrev(char *s)
 	}
 	return s;
 }
-char *ft_itoa(int nbr)
+char ft_six(int a)
+{
+	if (a >= 10)
+		return (a + '7');
+	else
+		return (a+'0');
+}
+char *ft_itoa(int nbr,int prime)
 {
 	int neg = 0;
 	int i = 0;
@@ -33,18 +42,35 @@ char *ft_itoa(int nbr)
 		neg = 1;
 	}
 	if (nbr == 0)
-		return (0);
+		return ("0");
 	if (a == -2147483648)
 		return ("-2147483648");
-	while (nbr)
+	if (prime == 16)
 	{
-		s[i] = nbr%10 + '0';
-		i+=1;
-		nbr/=10;
+		while(nbr)
+		{
+			s[i] = ft_six(nbr%16);
+			i+=1;
+			nbr/=16;
+		}
+	}
+	else
+	{
+		while (nbr)
+		{
+			s[i] = nbr%prime + '0';
+			i+=1;
+			nbr/=10;
+		}
 	}
 	if (neg == 1)
 		s[i] = '-';
 	i++;
 	s[i] = '\0';
 	return ft_strrev(s);
+}
+
+int main()
+{
+	printf("%s",ft_itoa(0,16));
 }
