@@ -5,54 +5,43 @@ int ft_isspace(char c)
 }
 void rostring(char *s)
 {
+	int printed = 0;
 	int i = 0;
-	int ros = 0;
-	while (s[i])
-	{
-		while (ft_isspace(s[i]) && ros == 0)
-			i++;
-		if (ros == 0)
-		{	while(s[i] && !ft_isspace(s[i]))
-			{
-				i++;
-				ros++;
-			}
-		}
+	//skip 1st word
+	while (ft_isspace(s[i]))
 		i++;
-		while(!ft_isspace(s[i]) && s[i])
-		{
-			write(1,&s[i],1);
-			i++;
-		}
+	while (!ft_isspace(s[i]) && s[i])
+		i++;
+	if (ft_isspace(s[i]) && s[i])
+		i++;
+	while(s[i])
+	{
 		if (ft_isspace(s[i]))
 		{
-			write(1," ",1);
+			write(1,&s[i],1);
 			while(ft_isspace(s[i]))
 				i++;
+			printed++;
 		}
+		write(1,&s[i],1);
+		i++;
 	}
-	i = 0;
-	if (ros > 0)
-	{
+	if (!s[i] && printed > 0)
 		write(1," ",1);
-		while (ros > 0)
-		{
-			if (ft_isspace(s[i]))
-			{
-				i++;
-				continue;
-			}	
-			write(1,&s[i],1);
-			ros--;
-			i++;
-		}
+	i = 0;
+	while (ft_isspace(s[i]) && s[i])
+		i++;
+	while (!ft_isspace(s[i]) && s[i])
+	{
+		write(1,&s[i],1);
+		i++;
 	}
+	write(1,"\n",1);
 }
 int main(int ac, char **av)
 {
-	if (ac > 1 && *av[1])
-	{
+	if (ac < 2)
+		write(1,"\n",1);
+	else 
 		rostring(av[1]);
-	}
-	write(1,"\n",1);
 }
