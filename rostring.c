@@ -1,5 +1,4 @@
 #include <unistd.h>
-
 int ft_isspace(char c)
 {
 	return (c == ' ' || c == '\t');
@@ -8,29 +7,36 @@ int ft_isspace(char c)
 void rostring(char *s)
 {
 	int i = 0;
+	int p = 0;
 	int first = 0;
-
+	while (ft_isspace(s[i]))
+		i++;
 	while (s[i])
 	{
-		while (ft_isspace(s[i]))
-			i++;
-		if (s[i] && !ft_isspace(s[i]))
+		if (!ft_isspace(s[i]) && first == 0)
 		{
-			if (first == 0)
+			while (!ft_isspace(s[i]) && s[i])
 			{
-				while (s[i] && !ft_isspace(s[i]))
-				{
-					i++;
-					first++;
-				}
+				i++;
+				first++;
 			}
-			else
+		}
+		else
+		{
+			while (ft_isspace(s[i]))
 			{
-				while (s[i] && !ft_isspace(s[i]))
-				{
-					write(1,&s[i],1);
+				i++;
+			}
+			while (!ft_isspace(s[i]) && s[i])
+			{
+				write(1,&s[i],1);
+				i++;
+				p++;
+			}
+			if (p>0)
+			{
+				while (ft_isspace(s[i]))
 					i++;
-				}
 				write(1," ",1);
 			}
 		}
@@ -38,13 +44,14 @@ void rostring(char *s)
 	i = 0;
 	while (ft_isspace(s[i]))
 		i++;
-	while (first > 0)
+	while(first > 0)
 	{
 		write(1,&s[i],1);
 		i++;
 		first--;
 	}
 }
+
 int main(int ac, char **av)
 {
 	if (ac > 1)
